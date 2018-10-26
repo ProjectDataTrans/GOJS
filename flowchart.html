@@ -6,7 +6,7 @@
 <meta name="description" content="Interactive flowchart diagram implemented by GoJS in JavaScript for HTML." />
 <!-- Copyright 1998-2017 by Northwoods Software Corporation. -->
 <meta charset="UTF-8">
-<script src="../release/go.js"></script>
+<script src="release/go.js"></script>
 <!-- <script src="../assets/js/goSamples.js"></script>  this is only for the GoJS Samples framework -->
 <script id="code">
   function init() {
@@ -85,7 +85,7 @@
         // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
         $(go.Panel, "Auto",
           $(go.Picture, 
-	      	{ desiredSize: new go.Size(40, 40), source: "images/value.png" }),
+          { desiredSize: new go.Size(40, 40), source: "images/value.png" }),
           $(go.TextBlock,
             {
               font: "bold 11pt Helvetica, Arial, sans-serif",
@@ -105,11 +105,11 @@
       ));
 
     myDiagram.nodeTemplateMap.add("Start",
-    	$(go.Part, "Spot", nodeStyle(),
-    		$(go.Panel, "Auto",
-	      $(go.Picture, 
-	      	{ desiredSize: new go.Size(40, 40), source: "images/xml.png" })
-	),
+      $(go.Part, "Spot", nodeStyle(),
+        $(go.Panel, "Auto",
+        $(go.Picture, 
+          { desiredSize: new go.Size(40, 40), source: "images/xml.png" })
+  ),
 
       // $(go.Node, "Spot", nodeStyle(),
       //   $(go.Panel, "Auto",
@@ -126,13 +126,13 @@
       ));
 
     myDiagram.nodeTemplateMap.add("End",
-    	$(go.Part, "Spot", nodeStyle(),
-    		$(go.Panel, "Auto",
-	      $(go.Picture, 
-	      	{ desiredSize: new go.Size(40, 40), source: "images/csv.png" })
+      $(go.Part, "Spot", nodeStyle(),
+        $(go.Panel, "Auto",
+        $(go.Picture, 
+          { desiredSize: new go.Size(40, 40), source: "images/csv.png" })
 
 
-	),
+  ),
 
 
 
@@ -151,13 +151,13 @@
       ));
 
     myDiagram.nodeTemplateMap.add("Comment",
-    	$(go.Part, "Spot", nodeStyle(),
-    		$(go.Panel, "Auto",
-	      $(go.Picture, 
-	      	{ desiredSize: new go.Size(40, 40), source: "images/db.png" })
+      $(go.Part, "Spot", nodeStyle(),
+        $(go.Panel, "Auto",
+        $(go.Picture, 
+          { desiredSize: new go.Size(40, 40), source: "images/db.png" })
 
 
-	),
+  ),
 
 
 
