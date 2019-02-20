@@ -7,7 +7,9 @@
     <!-- Copyright 1998-2017 by Northwoods Software Corporation. -->
     <meta charset="UTF-8">
     <script src="release/go.js"></script>
+    <script src="goIntro.js"></script>
     <script id="code">
+
         function init() {
 
             var $ = go.GraphObject.make;  // for conciseness in defining templates
@@ -290,8 +292,12 @@
             }
         }
 
+
+
+
     </script>
 </head>
+
 <body onload="init()">
 <div id="sample">
     <div style="width:100%; white-space:nowrap;">
@@ -303,6 +309,17 @@
       <div id="myDiagramDiv" style="border: solid 1px black; height: 720px"></div>
     </span>
     </div>
+    <script>goCode("commands", 600, 150)</script>
+    <input id="SelectAll" type="button" onclick="myDiagram.commandHandler.selectAll()" value="Select All" />
+    <input id="Cut" type="button" onclick="myDiagram.commandHandler.cutSelection()" value="Cut" />
+    <input id="Copy" type="button" onclick="myDiagram.commandHandler.copySelection()" value="Copy" />
+    <input id="Paste" type="button" onclick="myDiagram.commandHandler.pasteSelection()" value="Paste" />
+    <input id="Delete" type="button" onclick="myDiagram.commandHandler.deleteSelection()" value="Delete" />
+    <input id="Group" type="button" onclick="myDiagram.commandHandler.groupSelection()" value="Group" />
+    <input id="Ungroup" type="button" onclick="myDiagram.commandHandler.ungroupSelection()" value="Ungroup" />
+    <input id="Undo" type="button" onclick="myDiagram.commandHandler.undo()" value="Undo" />
+    <input id="Redo" type="button" onclick="myDiagram.commandHandler.redo()" value="Redo" />
+    </script>
     <p>
         The FlowChart sample demonstrates several key features of GoJS,
         namely <a href="../intro/palette.html">Palette</a>s,
@@ -338,6 +355,7 @@
     <button onclick="makeSVG()">Render as SVG</button>
     <div id="SVGArea"></div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script>
 
