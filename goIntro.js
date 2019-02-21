@@ -5,14 +5,15 @@ if (window.require) {
   // declare required libraries and ensure Bootstrap's dependency on jQuery
   require.config({
     paths: {
-      "highlight": "../assets/js/highlight",
+    /*  "highlight": "../assets/js/highlight",
       "jquery": "../assets/js/jquery.min", // 1.11.3
-      "bootstrap": "../assets/js/bootstrap.min" },
+      "bootstrap": "../assets/js/bootstrap.min" */
+    },
     shim: {
       "bootstrap": ["jquery"]
     }
   });
-  require(["highlight", "jquery", "bootstrap"], function() {});
+  require([], function() {});
 } else {
   function goLoadSrc(filenames) {
     var scripts = document.getElementsByTagName("script");

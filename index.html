@@ -26,6 +26,14 @@
                     });
 
             // when the document is modified, add a "*" to the title and enable the "Save" button
+            myDiagram.addDiagramListener("ObjectDoubleClicked", function (ev) {
+    console.log(ev); //Successfully logs the node you clicked.
+    console.log(ev.subject.ie); //Successfully logs the node's name.
+    // console.log(myDiagram.model.toJson())
+    // model.findNodeDataForKey(1234);
+
+});
+
             myDiagram.addDiagramListener("Modified", function (e) {
                 var button = document.getElementById("SaveButton");
                 if (button) button.disabled = !myDiagram.isModified;
@@ -357,7 +365,12 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
 <script>
+
+Cookies.set('name', 'value');
+console.log(Cookies.get('name')); // => 'value'
 
 
     $('input[type=file]').change(function () {
