@@ -326,12 +326,58 @@ function saveConfigureMongodb(input) {
 
     let parent = $(input).parents('#mongodbModal')
     let hostname = parent.find('#hostname-mg').val()
-    console.log(hostname)
+    let dbname = parent.find('#dbname-mg').val()
+
     let port = parent.find('#port-mg').val()
 
     let nodeData = myDiagram.model.findNodeDataForKey(key);
 
     nodeData.hostname = hostname
     nodeData.port = port
+    nodeData.dbname = dbname
     $('#mongodbModal').modal('hide');
 }
+function checkConnectMongodb(input) {
+    let parent = $(input).parents('#mongodbModal')
+    let hostname = parent.find('#hostname-mg').val()
+    let dbname = parent.find('#dbname-mg').val()
+    let port = parent.find('#port-mg').val()
+    $.ajax({
+        method: "POST",
+      url: "http://a40693a0.ngrok.io/checkConnectionMGDB",
+      data: {
+        hostname,
+        dbname,
+        port
+      }, 
+      success: function(data) {
+        console.log(data)
+        let html = "";
+        if (data.status == 500) {
+            toastr.error('Kết nối thất bại!')
+        }else{
+            var collectionNames = data.collectionNames
+            console.log(collectionNames)
+            let html = ''
+            for (var name of collectionNames) {
+            html += `<div>${name}</div>`
+            }
+            toastr.success('Kết nối thành công!')
+            $('.collections').html(html); 
+        }          
+        }
+    })
+
+    
+}
+//  var data = {
+//     collectionNames : ['students',  'classes']
+//     }
+//     var collectionNames = data.collectionNames
+//     console.log(collectionNames)
+//     let html = ''
+//     for (var name of collectionNames) {
+//         html += `<div>${name}</div>`
+// }
+// $('.collections').html(html)  
+ 

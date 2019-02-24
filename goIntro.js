@@ -30,7 +30,7 @@ if (window.require) {
       var selt = document.createElement("script");
       selt.async = false;
       selt.defer = false;
-      selt.src = "../assets/js/" + filename;
+      selt.src = "assets/js/" + filename;
       script.parentNode.insertBefore(selt, script.nextSibling);
       script = selt;
     }
@@ -43,19 +43,19 @@ var head = document.getElementsByTagName("head")[0];
 var link = document.createElement("link");
 link.type = "text/css";
 link.rel = "stylesheet";
-link.href = "../assets/css/bootstrap.min.css";
+link.href = "assets/css/bootstrap.min.css";
 head.appendChild(link);
 
 link = document.createElement("link");
 link.type = "text/css";
 link.rel = "stylesheet";
-link.href = "../assets/css/highlight.css";
+link.href = "assets/css/highlight.css";
 head.appendChild(link);
 
 link = document.createElement("link");
 link.type = "text/css";
 link.rel = "stylesheet";
-link.href = "../assets/css/main.css";
+link.href = "assets/css/main.css";
 head.appendChild(link);
 
 // Create a DIV and add it to the document just after the PRE element.
