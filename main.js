@@ -20,8 +20,60 @@ function init() {
             case 'MONGODB': {
                 let hostname = data.hostname ? data.hostname : 'localhost'
                 let port = data.port ? data.port : '27017'
+                let collectionNames = data.collections ? data.collections : []
+                loadMongodbModal(hostname, port, data.key, collectionNames)
+                break;
+            }
+            case 'SQL': {
+                let models = myDiagram.model;
+                let arrayLinks = JSON.parse(models.toJson()).linkDataArray
 
-                loadMongodbModal(hostname, port, data.key)
+                let modelLink = arrayLinks.filter(link => link.to == data.key);
+
+                let keyLink = null;
+                if (typeof modelLink !== 'undefined' && modelLink.length > 0) {
+                    keyLink = modelLink[0].from
+                }
+
+                // 
+                let collectionNames = new Array()
+                if (keyLink) {
+                    let dataLink = models.findNodeDataForKey(keyLink);
+                    collectionNames = dataLink.collectionNames
+                }
+                // send host name port collectionName to query
+                console.log(collectionNames)
+                // send ajax
+                let dataCollections = [
+                    {
+                        name: "sinh vien",
+                        fields: [
+                        {
+                            name: "MSSV",
+                            type: "int",
+                        },
+                        {
+                            name: "ho_ten",
+                            type: "String",
+                        }
+                        ]
+                    },
+                    {
+                        name: "lop",
+                        fields: [
+                        {
+                            name: "ma_lop",
+                            type: "int",
+                        },
+                        {
+                            name: "ten_lop",
+                            type: "String",
+                        }
+                        ]
+                    }
+                ];
+                loadSQLModal(dataCollections)
+                break;
             }
         }
 
@@ -312,12 +364,70 @@ $('input[type=file]').change(function () {
     fr.readAsText(files.item(0));
 });
 
-function loadMongodbModal(hostname, port, key) {
+//  load mongodb modal
+function loadMongodbModal(hostname, port, key, collectionNames) {
     $('#mongodbModal').find('#hostname-mg').val(hostname)
     $('#mongodbModal').find('#port-mg').val(port)
     $('#mongodbModal').find('.save').attr('data-key', key)
+    let html = "";
+     for (var name of collectionNames) {
+            html += `<div class="collection">
+                <input type="checkbox" name="collections" value="${name}" id="${name}" checked> <label for="${name}">${name}</label>
+            </div>`
+    }
+    $('#mongodbModal .collections').html(html)  
 
     $('#mongodbModal').modal('show');
+}
+
+// load sql modal
+function loadSQLModal(dataCollections) {
+    if(dataCollections.length > 0) {
+        var html = ""
+        for(let table of dataCollections) {
+            html += `
+<div class="table">
+<h3>${table.name}</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+    <th>#</th>
+      <th scope="col">Field name</th>
+      <th scope="col">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+  ` ;
+    let i = 0;
+   for(let field of  table.fields) {
+    i++
+    html += `<tr>
+    <th scope="row">${i}</th>
+      <td>${field.name}</td>
+      <td>${field.type}</td>
+    </tr>`
+   }
+
+
+   html +=  `
+  </tbody>
+</table>
+</div>
+
+            `
+        }
+    }
+
+$('#sqlModal .modal-body').html(html)
+$('.table').Tabledit({
+                removeButton: false,
+                columns: {
+                    identifier: [0, 'id'],
+                    editable: [[1, 'Field name'],[2, 'Type']]
+                }
+            });
+    $('#sqlModal').modal('show');
+
 }
 
 function saveConfigureMongodb(input) {
@@ -329,12 +439,17 @@ function saveConfigureMongodb(input) {
     let dbname = parent.find('#dbname-mg').val()
 
     let port = parent.find('#port-mg').val()
-
+    let collectionElements = parent.find('[name="collections"]');
+    let collectionNames = new Array();
+    for(let element of collectionElements) {
+            collectionNames.push($(element).val())
+    }
     let nodeData = myDiagram.model.findNodeDataForKey(key);
 
     nodeData.hostname = hostname
     nodeData.port = port
     nodeData.dbname = dbname
+     nodeData.collectionNames = collectionNames
     $('#mongodbModal').modal('hide');
 }
 function checkConnectMongodb(input) {
@@ -342,42 +457,47 @@ function checkConnectMongodb(input) {
     let hostname = parent.find('#hostname-mg').val()
     let dbname = parent.find('#dbname-mg').val()
     let port = parent.find('#port-mg').val()
-    $.ajax({
-        method: "POST",
-      url: "http://a40693a0.ngrok.io/checkConnectionMGDB",
-      data: {
-        hostname,
-        dbname,
-        port
-      }, 
-      success: function(data) {
-        console.log(data)
-        let html = "";
-        if (data.status == 500) {
-            toastr.error('Kết nối thất bại!')
-        }else{
-            var collectionNames = data.collectionNames
-            console.log(collectionNames)
-            let html = ''
-            for (var name of collectionNames) {
-            html += `<div>${name}</div>`
-            }
-            toastr.success('Kết nối thành công!')
-            $('.collections').html(html); 
-        }          
-        }
-    })
+    // $.ajax({
+    //     method: "POST",
+    //   url: "http://a40693a0.ngrok.io/checkConnectionMGDB",
+    //   data: {
+    //     hostname,
+    //     dbname,
+    //     port
+    //   }, 
+    //   success: function(data) {
+    //     console.log(data)
+    //     let html = "";
+    //     if (data.status == 500) {
+    //         toastr.error('Kết nối thất bại!')
+    //     }else{
+    //         var collectionNames = data.collectionNames
+    //         console.log(collectionNames)
+    //         let html = ''
+    //         for (var name of collectionNames) {
+    //             html += `<div class="collection">
+    //                 <input type="checkbox" name="collections" value="${name}" id="${name}"> <label for="${name}">${name}</label>
+    //             </div>`
+    //         }
+    //         $('.collections').html(html); 
 
+    //         toastr.success('Kết nối thành công!')
+    //     }          
+    //     }
+    // })
+ var data = {
+    collectionNames : ['students',  'classes']
+    }
+    var collectionNames = data.collectionNames
+    console.log(collectionNames)
+    let html = ''
+    for (var name of collectionNames) {
+        html += `<div class="collection">
+            <input type="checkbox" name="collections" value="${name}" id="${name}"> <label for="${name}">${name}</label>
+        </div>`
+}
+$('.collections').html(html)  
     
 }
-//  var data = {
-//     collectionNames : ['students',  'classes']
-//     }
-//     var collectionNames = data.collectionNames
-//     console.log(collectionNames)
-//     let html = ''
-//     for (var name of collectionNames) {
-//         html += `<div>${name}</div>`
-// }
-// $('.collections').html(html)  
+
  
