@@ -11,9 +11,10 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/toastr.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     
 </head>
-<body onload="init()">
+<body onload="init();initRelate()">
     <div id="sample">
         <div style="width:100%; white-space:nowrap;">
             <span style="display: inline-block; vertical-align: top; width:100px">
@@ -22,6 +23,7 @@
 
             <span style="display: inline-block; vertical-align: top; width:80%">
                 <div id="myDiagramDiv" style="border: solid 1px black; height: 720px"></div>
+                <div id="myRelationDiv" style="border: solid 1px black; height: 720px"></div>
             </span>
         </div>
         <input id="SelectAll" type="button" onclick="myDiagram.commandHandler.selectAll()" value="Select All" />
@@ -126,7 +128,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success save" data-key onclick="">Export</button>
+                    <button type="button" class="btn btn-success save" data-key onclick="showRelationship(this)">Export</button>
                 </div>
             </div>
         </div>
@@ -144,6 +146,7 @@
     <script src="release/go.js"></script>
     <script src="goIntro.js"></script>
     <script src="main.js"></script>
+    <script src="relate.js"></script>
     <script src="assets/js/toastr.min.js"></script>
     <script type="">
 
@@ -169,7 +172,46 @@
 
             fr.readAsText(files.item(0));
         });
+
+        // showModel();  // show the diagram's initial model
+function showRelationship(){
+    var data = {"status":"200","message":"Success","tables":[{"name":"book","primaryKey":"author","fields":[{"name":"_id","type":"","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"author","type":"string","nullable":"true","length":{"min":5,"max":25},"relationship":{"fieldName":"","type":""}},{"name":"language","type":"string","nullable":"true","length":{"min":4,"max":8},"relationship":{"fieldName":"","type":""}},{"name":"published_date","type":"string","nullable":"true","length":{"min":9,"max":9},"relationship":{"fieldName":"","type":""}},{"name":"publisher","type":"struct","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"title","type":"string","nullable":"true","length":{"min":5,"max":24},"relationship":{"fieldName":"","type":""}}],"relationship":{"fieldName":"publisher","type":"1_1"}},{"name":"publisher","primaryKey":"name","fields":[{"name":"name","type":"string","nullable":"true","length":{"min":13,"max":15},"relationship":{"fieldName":"","type":""}},{"name":"founded","type":"integer","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"location","type":"string","nullable":"true","length":{"min":2,"max":2},"relationship":{"fieldName":"","type":""}}],"relationship":{"fieldName":"publisher","type":"1_1"}},{"name":"users","primaryKey":"__v","fields":[{"name":"__v","type":"integer","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"_id","type":"","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"createdAt","type":"timestamp","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"email","type":"string","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"enable","type":"boolean","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"name","type":"string","nullable":"true","length":{"min":4,"max":13},"relationship":{"fieldName":"","type":""}},{"name":"password","type":"string","nullable":"true","length":{"min":60,"max":60},"relationship":{"fieldName":"","type":""}},{"name":"updatedAt","type":"timestamp","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}}],"relationship":{"fieldName":"","type":""}}]};
+ var nodeData = new Array(); 
+    for (let table of data.tables) {
+        
+        var fields = new Array();
+        for (let field of table.fields) {
+            fields.push(
+                { name: field.name }
+            )
+        }
+
+        nodeData.push({ key: table.name,
+                fields: fields,
+                loc: "0 0" }
+                )
+    }
+
+    myRelate.model =
+        go.Model.fromJson({
+            copiesArrays: true,
+            copiesArrayObjects: true,
+            linkFromPortIdProperty: "fromPort",
+            linkToPortIdProperty: "toPort",
+            nodeDataArray: nodeData,
+            linkDataArray: [
+              { from: "Record1", fromPort: "field1", to: "Record2", toPort: "fieldA" },
+              { from: "Record1", fromPort: "field2", to: "Record2", toPort: "fieldD" },
+              { from: "Record1", fromPort: "fieldThree", to: "Record2", toPort: "fieldB" }
+            ]
+          })
+          
+}
+      
     </script>
 </body>
 
 </html>
+
+
+

@@ -391,7 +391,7 @@ function loadSQLModal(dataCollections) {
 <table class="table table-bordered">
   <thead>
     <tr>
-    <th>#</th>
+    <th>Primary key <i class="fas fa-key"></i></th>
       <th scope="col">Field name</th>
       <th scope="col">Type</th>
     </tr>
@@ -402,7 +402,7 @@ function loadSQLModal(dataCollections) {
    for(let field of  table.fields) {
     i++
     html += `<tr>
-    <th scope="row">${i}</th>
+    <th scope="row"><input type="checkbox" id="primary-key" value="1"/></th>
       <td>${field.name}</td>
       <td>${field.type}</td>
     </tr>`
