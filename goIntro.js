@@ -35,16 +35,16 @@ if (window.require) {
       script = selt;
     }
   }
-  goLoadSrc("highlight.js", (window.jQuery ? "" : "jquery.min.js"), "bootstrap.min.js");
+  goLoadSrc("highlight.js", (window.jQuery ? "" : "jquery.min.js"));
 }
 
 var head = document.getElementsByTagName("head")[0];
 
 var link = document.createElement("link");
-link.type = "text/css";
-link.rel = "stylesheet";
-link.href = "assets/css/bootstrap.min.css";
-head.appendChild(link);
+// link.type = "text/css";
+// link.rel = "stylesheet";
+// link.href = "assets/css/bootstrap.min.css";
+// head.appendChild(link);
 
 link = document.createElement("link");
 link.type = "text/css";

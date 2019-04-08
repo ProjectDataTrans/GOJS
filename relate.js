@@ -11,6 +11,35 @@ function initRelate() {
               },
             "undoManager.isEnabled": true
           });
+         myRelate.addDiagramListener("ObjectDoubleClicked", function (ev) {
+          let data = ev.subject.part.data
+          let key = data.key
+          let fields = data.fields
+          let html = `
+          <table class="json table-bordered">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            
+            </tr>
+             </thead>
+          `
+          let i = 0;
+           for(let field of  fields) {
+            i++;
+              html += `<tr id="${i}">
+              <td>
+              <span class="tabledit-span tabledit-identifier">${i}</span>
+              <input class="tabledit-input tabledit-identifier" type="hidden" name="id" value="${i}">
+              </td><td>${field.name}</td></tr>`
+            }
+          `
+          
+         
+          </table>`
+          showJsonModal(html)
+        });
       // This template is a Panel that is used to represent each item in a Panel.itemArray.
       // The Panel is data bound to the item object.
       var fieldTemplate =
@@ -95,4 +124,29 @@ function initRelate() {
       function showModel() {
         document.getElementById("mySavedModel").textContent = myDiagram.model.toJson();
       }
+}
+
+function showJsonModal(html) {
+  jsonModal
+  $("#jsonModal .modal-body").html(html)
+  $('.json').Tabledit({
+    url: window.location.href,
+                removeButton: false,
+                columns: {
+                    identifier: [0, 'id'],
+                    editable: [[1, 'Name']  ]
+                },
+                onSuccess: (data, textStatus, jqXHR) => {
+                    console.log(data, textStatus, jqXHR)
+                }
+
+            });
+    $("#jsonModal").modal('show');
+}
+
+function saveJson(input) {
+
+  let key = $(input).attr('data-key')
+  let parent = $(input).parents('#jsonModal')
+
 }

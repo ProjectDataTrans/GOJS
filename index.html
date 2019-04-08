@@ -7,49 +7,55 @@
     <meta name="description" content="Interactive flowchart diagram implemented by GoJS in JavaScript for HTML." />
     <!-- Copyright 1998-2017 by Northwoods Software Corporation. -->
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/toastr.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    
 </head>
-<body onload="init();initRelate()">
-    <div id="sample">
-        <div style="width:100%; white-space:nowrap;">
-            <span style="display: inline-block; vertical-align: top; width:100px">
-                <div id="myPaletteDiv" style="border: solid 1px black; height: 720px"></div>
-            </span>
 
-            <span style="display: inline-block; vertical-align: top; width:80%">
-                <div id="myDiagramDiv" style="border: solid 1px black; height: 720px"></div>
-                <div id="myRelationDiv" style="border: solid 1px black; height: 720px"></div>
-            </span>
+<div class="content">
+        <div class="slider-wrapper">
+          You can change
+          <div class="slider">
+              <div class="slider-text1 d-flex align-items-center">MongoDB</div>
+              <div class="slider-text2 d-flex align-items-center justify-content-around">MySQL<i class="fas fa-database"></i></div>
+              <div class="slider-text3 d-flex align-items-center justify-content-around">CSV<i class="fas fa-file-csv"></i></div>
+          </div>
+        </div>       
+      </div>
+
+<body onload="init();initRelate()">
+    <div id="sample" class="container">
+        <div class="row">
+            <div class="col-lg-10" style="width:100%; white-space:nowrap;">
+                <!-- <div class="row"> -->
+                <!-- <span class="col-lg-1" style="display: inline-block; vertical-align: top; width:100%">
+                    
+                </span> -->
+
+                <span style="display: inline-block; vertical-align: top; width:100%;">
+                    <div class="row">
+                    <div class="col-lg-1" id="myPaletteDiv" style="border: solid 1px black; height: 500px"></div>
+                    <div class="col-lg" id="myDiagramDiv" style="border: solid 1px black; height: 500px;border-left: unset;"></div>
+                    <div class="col-lg" id="myRelationDiv" style="border: solid 1px black; height: 500px;border-left: unset;"></div>
+                    </div>
+                </span>
+                <!-- </div> -->
+            </div>
+            
+            <div class="col-lg-2">
+                <input id="SelectAll" class="btn btn-primary btn-block mb-3" onclick="myDiagram.commandHandler.selectAll()" value="Select All" />
+                <input id="Cut" class="btn btn-danger btn-block mb-3" onclick="myDiagram.commandHandler.cutSelection()" value="Cut" />
+                <input id="Copy" class="btn btn-success btn-block mb-3" onclick="myDiagram.commandHandler.copySelection()" value="Copy" />
+                <input id="Paste" class="btn btn-secondary btn-block mb-3" onclick="myDiagram.commandHandler.pasteSelection()" value="Paste" />
+                <input id="Delete" class="btn btn-danger btn-block mb-3" onclick="myDiagram.commandHandler.deleteSelection()" value="Delete" />
+                <input id="Group" class="btn btn-warning btn-block mb-3" onclick="myDiagram.commandHandler.groupSelection()" value="Group" />
+                <input id="Ungroup" class="btn btn-dark btn-block mb-3" onclick="myDiagram.commandHandler.ungroupSelection()" value="Ungroup" />
+                <input id="Undo" class="btn btn-info btn-block mb-3" onclick="myDiagram.commandHandler.undo()" value="Undo" />
+                <input id="Redo" class="btn btn-primary btn-block" onclick="myDiagram.commandHandler.redo()" value="Redo" />
+            </div>
         </div>
-        <input id="SelectAll" type="button" onclick="myDiagram.commandHandler.selectAll()" value="Select All" />
-        <input id="Cut" type="button" onclick="myDiagram.commandHandler.cutSelection()" value="Cut" />
-        <input id="Copy" type="button" onclick="myDiagram.commandHandler.copySelection()" value="Copy" />
-        <input id="Paste" type="button" onclick="myDiagram.commandHandler.pasteSelection()" value="Paste" />
-        <input id="Delete" type="button" onclick="myDiagram.commandHandler.deleteSelection()" value="Delete" />
-        <input id="Group" type="button" onclick="myDiagram.commandHandler.groupSelection()" value="Group" />
-        <input id="Ungroup" type="button" onclick="myDiagram.commandHandler.ungroupSelection()" value="Ungroup" />
-        <input id="Undo" type="button" onclick="myDiagram.commandHandler.undo()" value="Undo" />
-        <input id="Redo" type="button" onclick="myDiagram.commandHandler.redo()" value="Redo" />
-        </script>
-        <p>
-            The FlowChart sample demonstrates several key features of GoJS,
-            namely <a href="../intro/palette.html">Palette</a>s,
-            <a href="../intro/links.html">Linkable nodes</a>, Drag/Drop behavior,
-            <a href="../intro/textBlocks.html">Text Editing</a>, and the use of
-            <a href="../intro/templateMaps.html">Node Template Maps</a> in Diagrams.
-        </p>
-        <p>
-            Mouse-over a Node to view its ports.
-            Drag from these ports to create new Links.
-            Selecting Links allows you to re-shape and re-link them.
-            Selecting a Node and then clicking its TextBlock will allow
-            you to edit text (except on the Start and End Nodes).
-        </p>
+    </div>
         <button id="SaveButton" onclick="save()">Save</button>
         <button onclick="load()">Load</button>
         <input type="file" id="import">
@@ -132,6 +138,34 @@
                 </div>
             </div>
         </div>
+
+         
+    </div>
+
+
+
+        <!-- modal json -->
+        <div class="modal fade" id="jsonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Property</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- data -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success save" data-key onclick="saveJson()">Export</button>
+                </div>
+            </div>
+        </div>
+
+         
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -141,17 +175,13 @@
         crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="release/go.js"></script>
     <script src="goIntro.js"></script>
     <script src="main.js"></script>
     <script src="relate.js"></script>
+    <script src="https://gojs.net/latest/extensions/Figures.js"></script>
     <script src="assets/js/toastr.min.js"></script>
-    <script type="">
-
-        
-    </script>
     <script>
         // Close windows event
         $(window).on("beforeunload", function () {
@@ -172,7 +202,7 @@
 
             fr.readAsText(files.item(0));
         });
-
+            
         // showModel();  // show the diagram's initial model
 function showRelationship(){
     var data = {"status":"200","message":"Success","tables":[{"name":"book","primaryKey":"author","fields":[{"name":"_id","type":"","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"author","type":"string","nullable":"true","length":{"min":5,"max":25},"relationship":{"fieldName":"","type":""}},{"name":"language","type":"string","nullable":"true","length":{"min":4,"max":8},"relationship":{"fieldName":"","type":""}},{"name":"published_date","type":"string","nullable":"true","length":{"min":9,"max":9},"relationship":{"fieldName":"","type":""}},{"name":"publisher","type":"struct","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"title","type":"string","nullable":"true","length":{"min":5,"max":24},"relationship":{"fieldName":"","type":""}}],"relationship":{"fieldName":"publisher","type":"1_1"}},{"name":"publisher","primaryKey":"name","fields":[{"name":"name","type":"string","nullable":"true","length":{"min":13,"max":15},"relationship":{"fieldName":"","type":""}},{"name":"founded","type":"integer","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"location","type":"string","nullable":"true","length":{"min":2,"max":2},"relationship":{"fieldName":"","type":""}}],"relationship":{"fieldName":"publisher","type":"1_1"}},{"name":"users","primaryKey":"__v","fields":[{"name":"__v","type":"integer","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"_id","type":"","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"createdAt","type":"timestamp","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"email","type":"string","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"enable","type":"boolean","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}},{"name":"name","type":"string","nullable":"true","length":{"min":4,"max":13},"relationship":{"fieldName":"","type":""}},{"name":"password","type":"string","nullable":"true","length":{"min":60,"max":60},"relationship":{"fieldName":"","type":""}},{"name":"updatedAt","type":"timestamp","nullable":"true","length":{"min":0,"max":0},"relationship":{"fieldName":"","type":""}}],"relationship":{"fieldName":"","type":""}}]};
@@ -181,8 +211,12 @@ function showRelationship(){
         
         var fields = new Array();
         for (let field of table.fields) {
+            
+
             fields.push(
-                { name: field.name }
+                { name: field.name 
+                ,
+            figure: table.primaryKey == field.name  ? "Key" : ""}
             )
         }
 
@@ -200,7 +234,7 @@ function showRelationship(){
             linkToPortIdProperty: "toPort",
             nodeDataArray: nodeData,
             linkDataArray: [
-              { from: "Record1", fromPort: "field1", to: "Record2", toPort: "fieldA" },
+              { from: "Record1", fromPort: "field1", to: "Record2", toPort: "fieldA" , figure: "Ellipse"},
               { from: "Record1", fromPort: "field2", to: "Record2", toPort: "fieldD" },
               { from: "Record1", fromPort: "fieldThree", to: "Record2", toPort: "fieldB" }
             ]

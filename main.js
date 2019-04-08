@@ -500,4 +500,3 @@ $('.collections').html(html)
     
 }
 
- 
