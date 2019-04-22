@@ -419,13 +419,13 @@ function loadSQLModal(dataCollections) {
     }
 
 $('#sqlModal .modal-body').html(html)
-$('.table').Tabledit({
-                removeButton: false,
-                columns: {
-                    identifier: [0, 'id'],
-                    editable: [[1, 'Field name'],[2, 'Type']]
-                }
-            });
+// $('.table').Tabledit({
+//                 removeButton: false,
+//                 columns: {
+//                     identifier: [0, 'id'],
+//                     editable: [[1, 'Field name'],[2, 'Type']]
+//                 }
+//             });
     $('#sqlModal').modal('show');
 
 }
